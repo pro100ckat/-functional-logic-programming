@@ -1,2 +1,2 @@
-# -functional-logic-programming
+# functional-logic-programming
 Функционально логическое программирование

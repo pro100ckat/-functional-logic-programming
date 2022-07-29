@@ -1,0 +1,62 @@
+% Student exercise profile
+:- set_prolog_flag(occurs_check, error).        % disallow cyclic terms
+:- set_prolog_stack(global, limit(8 000 000)).  % limit term space (8Mb)
+:- set_prolog_stack(local,  limit(2 000 000)).  % limit environment space
+
+% Your program goes here
+
+a:- write(1).
+a:- write(2).
+b(X):- a,X='еще'.
+c:- a.
+d:- a,fail.
+
+size(1,R):- R >= 158, R < 164.
+size(2,R):- R >= 164, R < 170.
+size(3,R):- R >= 170, R < 176.
+size(4,R):- R >= 176, R < 182.
+size(5,R):- R >= 182, R < 188.
+
+state('sane').
+state('INSANE').
+
+mind(1,L):-member(ace='INSANE',L).
+mind(2,L):-member(three='sane',L);member(two='sane',L).
+mind(3,L):-member(ace='sane',L);member(four='sane',L);member(ace='INSANE',L);member(four='INSANE',L).
+mind(4,L):-member(ace='sane',L);member(two='sane',L).
+mind(5,L):-member(five='INSANE',L).
+mind(6,L):-member(six='sane',L);member(seven='INSANE',L);member(six='INSANE',L);member(seven='sane',L);member(six='sane',L);member(seven='sane',L).
+
+check_mind('sane', N, L):-mind(N, L).
+check_mind('INSANE', N, L):-not(mind(N, L)).
+
+solve(L):-
+    L=[two=A, three=B, four=C, five=D, six=E, seven=F, jack=G, ace=H],
+    state(A),state(B),state(C),state(D),state(E),state(F),state(G),state(H),
+    check_mind(B,1,L),
+    check_mind(C,2,L),
+    check_mind(D,3,L),
+    check_mind(E,4,L),
+    check_mind(F,5,L),
+    check_mind(G,6,L).
+
+участник(в_своем_уме). 
+участник(не_в_своем_уме). 
+думает(_х,_у):-(_х=в_своем_уме,call(_у)). 
+думает(_х,_у):-(_х=не_в_своем_уме,not(call(_у))). 
+пример(_королева,_король):- 
+участник(_королева), 
+участник(_король), 
+думает(_королева,думает(_король,думает(_королева,думает(_король,_королева=не_в_своем_уме)))). 
+
+                             
+
+/** <examples> Your example queries go here, e.g.
+?-b(X).
+?-c.
+?-d.
+?- repeat,a,fail.
+?- writeln("Введите рост:"),read(A),writeln("Ваш размер:"),size(B,A).
+?- solve(L).
+?-пример(_королева,_король). 
+*/

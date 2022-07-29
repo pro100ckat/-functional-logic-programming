@@ -1,0 +1,24 @@
+% Student exercise profile
+:- set_prolog_flag(occurs_check, error).        % disallow cyclic terms
+:- set_prolog_stack(global, limit(8 000 000)).  % limit term space (8Mb)
+:- set_prolog_stack(local,  limit(2 000 000)).  % limit environment space
+
+% Your program goes here
+singer("Martishka",instruments(["Skripka"]),"не умеет").
+singer("Osel",instruments(["Alt"]),"не умеет").
+singer("Kozel",instruments(["Skripka"]),"не умеет").
+singer("Mishka",instruments(["Bass"]),"не умеет").
+singer("Solovey",instruments([]),"умеет").
+
+no_musicians(Q,Z):- singer(Q,_,Z),Z="не умеет".
+
+member(Elem, [Elem|_Tail]).
+	member(Elem, [_Head|Tail]):-
+   		member(Elem, Tail).
+
+instrument(W,R):- singer(W,instruments(E),_),member(R,E).
+
+/** <examples> Your example queries go here, e.g.
+?- write(" то не умеет играть: "),no_musicians(A,B).
+?- writeln("¬ведите название музыкального инструмента:"),read(Tool),writeln("ћузыканты с данным инструментом:"),instrument(A,Tool).
+*/

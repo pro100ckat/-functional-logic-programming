@@ -1,0 +1,25 @@
+write_list([]):-!.
+write_list([H|T]):-write(H), nl, write_list(T).
+%write_list([1,2,a,3])
+
+sum_list([], 0):-!.
+sum_list([H|T], Sum):-sum_list(T, TailSum), Sum is TailSum + H.
+%sum_list([1,2,3,4,5], Sum)
+
+min_list([MinElem], MinElem):-!.
+min_list([Head|Tail], MinElem):-min_list(Tail, TailMinElem),TailMinElem < Head, !, MinElem = TailMinElem;MinElem = Head.
+max_list([MaxElem], MaxElem):-!.
+max_list([Head|Tail], MaxElem):-max_list(Tail, TailMaxElem),TailMaxElem > Head, !, MaxElem = TailMaxElem;MaxElem = Head.
+%L=[1,2,3,4,5], min_list(L, Min), max_list(L, Max).
+
+length([ ], 0):- !.
+length(List,Length):-List=[H|T],length(T, Length_T), Length=Length_T+1.
+length([H|T],Length):-length(T, Length_T), Length=Length_T+1.
+%length([1|[2,3,4,5]], Length)
+%length([], Length)	
+
+member(Elem, [Elem | _]):-!.
+member(Elem, [_ | T]):-member(Elem, T).
+search(Elem, List):- member(Elem, List), !, write("Элемент найден! :-) ").
+search(_, _):- write("Элемент не найден! :-( ").
+%Cities=["Москва", "Санкт-Петербург", "Омск", "Новосибирск", "Томск"],City="Новосибирск", search(City, Cities).

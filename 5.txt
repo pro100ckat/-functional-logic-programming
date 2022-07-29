@@ -1,0 +1,89 @@
+factorial(N,FactN):- fact(N,FactN,1,1).
+fact(N,FactN,I,P):-I<N, I1 is I+1,P1 is P*I1,fact(N,FactN,I1,P1).
+fact(N,FactN,N,FactN).
+
+...
+factorial(1,1).
+factorial(N,F):-N>1,N1 is N-1,factorial(N1, F1),F is N*F1.
+%factorial(4,X).
+....
+factorial(N,FactN):- fact(N,FactN,1).
+
+fact(N,FactN,P):-
+
+N>0,
+
+P1 is P*N,
+
+N1 is N-1,
+
+fact(N1,FactN,P1).
+
+fact(0,FactN,FactN).
+
+.....
+kurs(1,gruppa('Шекспир',gruppa('Мольер',gruppa('Чехов',empty)))).
+
+kurs(2,gruppa('Гильберт',gruppa('Эйлер',gruppa('Лейбниц',
+
+gruppa('Кантор',empty))))).
+
+%kurs(1,X).
+%kurs(N,gruppa(X,Y)).
+%kurs(N1,gruppa(X, gruppa(Y,Z))).
+
+......
+fib(N,F):-fib(N,1,0,F).
+fib(N,Fib1,Fib2,F):-
+    N>1,
+    N1 is N-1,
+    NewF is Fib1+Fib2,
+    fib(N1,NewF,Fib1,F).
+fib(1,F,_,F).
+chet(X):-P is X mod 2,P ==0.
+sumchet(N,X):-sumchet(N,0,X).
+sumchet(N,Sum,X):-
+    N>0,
+    N1 is N-1,
+    fib(N,F),
+    (chet(F) -> Sum1 is Sum+F; Sum1 is Sum),
+    sumchet(N1,Sum1,X).
+sumchet(0,Sum1,Sum1).
+check(Numb,N):-check(Numb,0,0,N).
+check(Numb,Numb,Pos,Pos).
+check(Numb,NumbPos,Pos,N):-
+    Numb>=NumbPos,
+    Pos1 is  Pos+1,
+    sumchet(Pos1,NumbPos1),
+    check(Numb,NumbPos1,Pos1,N).
+check(_,_,Pos1,Pos1).
+
+%sumchet(5,X). сумма четных из первых 5
+%%sumchet(10,X). сумма четных из первых 10
+%check(2,5).
+%check(10,6).
+%check(11,6).
+
+
+........
+ack(0,N,Val):- Val is N + 1.
+ 
+ack(M,0,Val) :- M > 0, M1 is M-1, ack(M1,1,Val).
+ 
+ack(M,N,Val) :- M > 0, N > 0, M1 is M-1, N1 is N-1, ack(M,N1,Val1),ack(M1,Val1,Val).
+%ack(10,5,X).
+
+
+
+.....
+fib(0,1,1).
+fib(D,M,N):-
+D > 0,
+D1 is D-1,
+fib(D1,M1,N1),
+N is M1,
+M is M1 + N1.
+
+.......
+
+
